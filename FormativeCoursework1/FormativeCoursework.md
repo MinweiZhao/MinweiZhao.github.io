@@ -8,19 +8,18 @@ import pandas as pd
 
 
 ```python
-# 设置地理数据获取参数
+#Set geographic data acquisition parameters
 # location_name = "Whitechapel, London, UK"
 
-radius = 2000  # 2000米的半径
-# 设置经纬度坐标
-# latitude = 51.5161  # Whitechapel的纬度
-# longitude = -0.0602  # Whitechapel的经度
+radius = 2000  # 2000m radius
+# Set latitude and longitude coordinates
 latitude =  51.5203 # Spitalfields
 longitude = -0.0740
-# 使用经纬度坐标获取街道网络数据
+
+# Get street network data using latitude and longitude coordinates
 graph = ox.graph_from_point((latitude, longitude), dist=1000, network_type='all')
 
-# 绘制地理数据
+# Draw geographic data
 ox.plot_graph(ox.project_graph(graph))
 plt.show()
 
@@ -34,16 +33,16 @@ plt.show()
 
 
 ```python
-# 设置地理数据获取参数
-latitude = 51.5203  # Spitalfields 的纬度
-longitude = -0.0740  # Spitalfields 的经度
-radius = 1000  # 1000米的半径
+#Set geographic data acquisition parameters
+latitude = 51.5203 # Latitude of Spitalfields
+longitude = -0.0740 # longitude of Spitalfields
+radius = 1000 # Radius of 1000 meters
 
-# 使用经纬度坐标获取街道网络数据
+# Get street network data using latitude and longitude coordinates
 graph = ox.graph_from_point((latitude, longitude), dist=radius, network_type='walk')
 
-# 定义您的公寓和地铁车站的经纬度坐标
-# 地铁站和公寓的近似位置
+# Approximate location of metro station and apartment
+
 locations = {
     'Chapter Spitalfields': (51.517842320598405, -0.076822759558025),
     'Liverpool Street Station': (51.5175, -0.0823),
@@ -55,45 +54,44 @@ locations = {
 graph_proj = ox.project_graph(graph)
 
 location_nodes = {}
-# 使用ox.nearest_nodes获取每个地点的最近节点
+
+# Use ox.nearest_nodes to get the nearest nodes for each location
 for location, (lat, lon) in locations.items():
     node = ox.nearest_nodes(graph, lon, lat)
     location_nodes[location] = node
 
-# 绘制地图
+# draw map
 fig, ax = ox.plot_graph(graph, bgcolor='k', edge_color='gray', node_size=0, show=False, close=False)
 
-# 颜色列表
+# color list
 colors = ['red', 'green', 'blue', 'yellow', 'cyan']
 
-# # 创建一个空的路径列表
-# paths = []
-
-# # 计算每条路径并将它们添加到路径列表
+# # Calculate each path and add them to the path list
 # for i, (location, target_node) in enumerate(location_nodes.items()):
-#     if location == 'Chapter Spitalfields':
-#         continue  # 跳过公寓本身
-#     path = nx.shortest_path(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
-#     paths.append((path, colors[i % len(colors)]))  # 将路径和颜色作为元组添加到列表
+# if location == 'Chapter Spitalfields':
+# continue # Skip the apartment itself
+# path = nx.shortest_path(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
+# paths.append((path, colors[i % len(colors)])) # Add paths and colors to the list as tuples
 
-# # 一次性绘制所有路径
+# # Draw all paths at once
 # for path, color in paths:
-#     ox.plot_graph_route(graph, path, route_color=color, ax=ax, route_linewidth=6, route_alpha=0.9, orig_dest_node_size=0)
+# ox.plot_graph_route(graph, path, route_color=color, ax=ax, route_linewidth=6, route_alpha=0.9, orig_dest_node_size=0)
 
-# 似乎plot_graph_route方法只能绘制一条路径...
+# It seems that the plot_graph_route method can only draw one path...
 
 paths = []
-# 使用直接使用matplotlib绘制直接绘制每条路径
+# Use matplotlib to draw directly to draw each path
 for i, (location, target_node) in enumerate(location_nodes.items()):
-    if location == 'Chapter Spitalfields':
-        continue  # 跳过公寓本身
-    path = nx.shortest_path(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
-    length = nx.shortest_path_length(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
-    long_path = [(graph.nodes[node]['x'], graph.nodes[node]['y']) for node in path]
-    xs, ys = zip(*long_path)  # 创建一组X和Y坐标
-    ax.plot(xs, ys, color=colors[i % len(colors)], linewidth=4, alpha=0.6, label=f"{location} ({length:.2f} m)")  # 添加label参数
-    paths.append((path, colors[i % len(colors)]))
-# 添加地点标记
+     if location == 'Chapter Spitalfields':
+         continue # Skip the apartment itself
+     path = nx.shortest_path(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
+     length = nx.shortest_path_length(graph, source=location_nodes['Chapter Spitalfields'], target=target_node, weight='length')
+     long_path = [(graph.nodes[node]['x'], graph.nodes[node]['y']) for node in path]
+     xs, ys = zip(*long_path) # Create a set of X and Y coordinates
+     ax.plot(xs, ys, color=colors[i % len(colors)], linewidth=4, alpha=0.6, label=f"{location} ({length:.2f} m)") # Add label parameter
+     paths.append((path, colors[i % len(colors)]))
+    
+# Add location markers
 for location, (lat, lon) in locations.items():
     if location == 'Chapter Spitalfields':
         node = ox.nearest_nodes(graph, lon, lat)
@@ -105,7 +103,8 @@ for location, (lat, lon) in locations.items():
     x, y = graph.nodes[node]['x'], graph.nodes[node]['y']
     ax.scatter(x, y, c='white', s=100, edgecolor='w', zorder=3)
     ax.text(x, y, location, fontsize=12, color='white', verticalalignment='bottom')
-# 显示图像
+    
+# show map
 ax.legend(loc='upper left')
 plt.show()
 ```
@@ -122,22 +121,22 @@ import folium
 import geopandas as gpd
 from shapely.geometry import Point, LineString
 
-# 转换图为GeoDataFrames
+# Convert the graph to GeoDataFrames
 gdf_nodes, gdf_edges = ox.graph_to_gdfs(graph)
 
-# 创建基础地图
+# Create base map
 base_map = folium.Map(location=[latitude, longitude], zoom_start=15, tiles='cartodbpositron')
 
-# 将路径绘制到地图上
+# Draw the path onto the map
 for path, color in paths:
-    # 获取路径上节点的坐标
+    # Get the coordinates of nodes on the path
     line_geom = LineString([(gdf_nodes.loc[node].geometry.x, gdf_nodes.loc[node].geometry.y) for node in path])
-    # 创建LineString的GeoSeries
+    # Create GeoSeries of LineString
     gdf_line = gpd.GeoSeries([line_geom], crs='EPSG:4326')
-    # 添加到folium地图
+    # Add to folium map
     folium.GeoJson(gdf_line, style_function=lambda x, color=color: {'color': color, 'weight': 4}).add_to(base_map)
 
-# 将节点绘制到地图上
+# Draw nodes onto the map
 for location, (lat, lon) in locations.items():
     folium.CircleMarker(
         location=(lat, lon),
@@ -149,7 +148,7 @@ for location, (lat, lon) in locations.items():
         popup=location
     ).add_to(base_map)
 
-# 显示地图
+# show map
 base_map
 ## shortest distance analysis
 # In fact, on Google Maps, Liverpool Street Station is the best in terms of arrival time and distance, which is somewhat different from the analysis results.
@@ -465,54 +464,54 @@ centers = {
     'City Sports': (51.5221, -0.0756),
     'Britannia Leisure Centre': (51.5358, -0.0676),
 }
-# 设置步行速度为每分钟70米，计算30分钟内可走的距离
+# Set the walking speed to 70 meters per minute and calculate the distance that can be walked in 30 minutes
 walking_speed = 70  # meters per minute
 walking_time = 30  # minutes
 max_distance = walking_speed * walking_time  # maximum walking distance in meters
 
-# 公寓位置
+# Apartment location
 apartment_location = (51.517842320598405, -0.076822759558025)
 
-# 获取步行网络
+# Get walking network
 G_walk = ox.graph_from_point(apartment_location, dist=max_distance, network_type='walk')
 
-# 找到所有健身中心的最近节点
+# Find the nearest nodes of all fitness centers
 centers_nodes = {center: ox.nearest_nodes(G_walk, centers[center][1], centers[center][0]) for center in centers}
 
-# 找到公寓的最近节点
+# Find the nearest node to the apartment
 apt_node = ox.nearest_nodes(G_walk, apartment_location[1], apartment_location[0])
 ```
 
 
 ```python
-# 计算可达性区域内的节点
-# 这里使用公寓位置的最近节点作为起点
+# Calculate the nodes within the reachability area
+# Here the nearest node of the apartment location is used as the starting point
 apt_node = ox.nearest_nodes(G_walk, apartment_location[1], apartment_location[0])
 reachable_nodes = nx.single_source_dijkstra_path_length(G_walk, apt_node, cutoff=max_distance, weight='length')
 
-# 将可达性区域内的节点转换为GeoDataFrame
+#Convert nodes within the reachability area to GeoDataFrame
 reachable_nodes_gdf = gpd.GeoDataFrame(reachable_nodes.items(), columns=['node', 'time'])
 reachable_nodes_gdf = reachable_nodes_gdf.set_index('node').join(gdf_nodes).reset_index()
 
 
-# 设置边属性优化\GPT生成
-# 设置边颜色 
+# Set edge attribute optimization\This part is generated by GPT
+# Set edge color
 ec = ['blue' if edge[0] in reachable_nodes_gdf['node'].values and edge[1] in reachable_nodes_gdf['node'].values else 'gray' for edge in G_walk.edges()]
 
-# 设置边宽度
+# Set edge width
 ew = [3 if edge[0] in reachable_nodes_gdf['node'].values and edge[1] in reachable_nodes_gdf['node'].values else 1 for edge in G_walk.edges()]
 
-# 绘制整个网络图，使用不同颜色和宽度表示30分钟可达区域内的边
+# Draw the entire network diagram, using different colors and widths to represent the edges within the 30-minute reachable area
 fig, ax = ox.plot_graph(G_walk, show=False, close=False, edge_color=ec, edge_linewidth=ew)
 
-# 绘制健身中心的位置
-for center, (lat, lon) in centers.items():
+# Draw the location of the fitness center
+​for center, (lat, lon) in centers.items():
     color = 'red' if centers_nodes[center] in reachable_nodes else 'black'
     size = 100 if centers_nodes[center] in reachable_nodes else 25
     ax.scatter(lon, lat, c=color, s=size, edgecolor='w', zorder=3)
     plt.text(lon, lat, center, fontsize=12, color='red', verticalalignment='bottom')
 
-# 创建图例
+#Create legend
 red_patch = plt.Line2D([0], [0], marker='o', color='w', label='Within 30 mins', markersize=10, markerfacecolor='red', markeredgewidth=2)
 black_patch = plt.Line2D([0], [0], marker='o', color='w', label='Beyond 30 mins', markersize=5, markerfacecolor='black', markeredgewidth=2)
 plt.legend(handles=[red_patch, black_patch], loc='lower left')
@@ -536,19 +535,19 @@ plt.show()
 ```python
 G=ox.graph_from_address('Liverpool Street Station, London', dist=2000, network_type='drive')
 
-# some of the centrality measures are not implemented on multiGraph so first set as diGraph
+# set as diGraph
 DG = ox.get_digraph(G)
 
-# let's first calculate its node degree centrality
+# calculate node degree centrality
 node_dc = nx.degree_centrality(DG)
 
-# after this you need to first set the attributes back to its edge
+# set the attributes
 nx.set_node_attributes(DG, node_dc,'dc')
 
-# and turn back to multiGraph for plotting
+# plotting
 G1 = nx.MultiGraph(DG)
 
-# you can then color the nodes in the original graph with their degree centralities 
+# color the nodes in the original graph with their degree centralities 
 nc = ox.plot.get_node_colors_by_attr(G1, 'dc', cmap='plasma')
 fig, ax = ox.plot_graph(G1, node_size=40, node_color=nc, 
                         edge_color='gray', edge_linewidth=0.5, edge_alpha=1)
@@ -562,16 +561,16 @@ fig, ax = ox.plot_graph(G1, node_size=40, node_color=nc,
 
 
 ```python
-# you can also calculate its edge degree centrality: convert graph into a line graph so edges become nodes and vice versa
+# calculate its edge degree centrality
 edge_dc = nx.degree_centrality(nx.line_graph(DG))
 
-# after this you need to first set the attributes back to its edge
+# set the attributes
 nx.set_edge_attributes(DG, edge_dc,'dc')
 
-# and turn back to multiGraph for plotting
+# plotting
 G1 = nx.MultiGraph(DG)
 
-# you can then color the edges in the original graph with degree centralities in the line graph
+# color the edges in the original graph with degree centralities in the line graph
 nc = ox.plot.get_edge_colors_by_attr(G1, 'dc', cmap='plasma')
 fig, ax = ox.plot_graph(G1, node_size=0, node_color='w', node_edgecolor='gray', node_zorder=2,
                         edge_color=nc, edge_linewidth=1.5, edge_alpha=1)
@@ -585,16 +584,14 @@ fig, ax = ox.plot_graph(G1, node_size=0, node_color='w', node_edgecolor='gray', 
 
 
 ```python
-# similarly, let's calculate edge closeness centrality: convert graph to a line graph so edges become nodes and vice versa
+# calculate edge closeness centrality
 edge_cc = nx.closeness_centrality(nx.line_graph(DG))
 
 # set or inscribe the centrality measure of each node as an edge attribute of the graph network object
 nx.set_edge_attributes(DG,edge_cc,'cc')
 G1 = nx.MultiGraph(DG)
 
-# you can then color the edges in the original graph with closeness centrality in the line graph. 
-# you can see the area that is the most central here is near Trafalgar square.
-
+# color the edges in the original graph with closeness centrality in the line graph. 
 nc = ox.plot.get_edge_colors_by_attr(G1, 'cc', cmap='plasma')
 fig, ax = ox.plot_graph(G1, node_size=0, node_color='w', node_edgecolor='gray', node_zorder=2,
                         edge_color=nc, edge_linewidth=1.5, edge_alpha=1)

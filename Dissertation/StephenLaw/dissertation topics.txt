@@ -1,7 +1,0 @@
-Dr Stephen Law
-Themes: Urban Image Analysis; Text Analytics; Machine Learning (GeoAI); Urban Design; Space Syntax and Street Network Analytics and Mobility; econometrics
-*** Own ideas welcome! ***
-Apply machine vision methods to retrieve environmental measurements (tree height/species) from urban imagery to study urban heat island effect across cities in the UK.
-Compare different language foundation models or other NLP methods for housing neighbourhood identification, a form of toponym recognition, leveraging text data in London, UK.
-Apply unsupervised graph neural network methods on the street network into identifying urban morphological types for cities in the UK.
-Explaining Environmental Health Outcomes (NHS prescription data) from Satellite Imagery in collaboration with Nokia Bell Labs Responsible AI team. Please see link for more information.

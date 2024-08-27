@@ -1,0 +1,156 @@
+Variable Name,Code
+Percent Asian,1
+Percent Black,2
+Percent Mixed,3
+Percent White,4
+Percent Sikh,5
+Percent Hindu,6
+Percent Christian,7
+Percent Jewish,8
+Percent Buddhist,9
+Percent No Religion,10
+Percent Muslim,11
+Percent No Central Heating,12
+Percent Wood Heating,13
+Percent Communal Heating,14
+Percent Tfw Less Than 2Km,15
+Percent Tfw 2Km To 5Km,16
+Percent Tfw 60Km And Over,17
+Percent Wfh,18
+Percent Part-Time,19
+Percent 15 Hours Or Less Worked,20
+Percent 49 Or More Hours Worked,21
+Percent Full-Time,22
+Percent Commute On Foot,23
+Percent Commute Metro Rail,24
+Percent Commute Bus,25
+Percent Commute Bicycle,26
+Percent Commute Train,27
+Percent Commute Car,28
+Percent Same Address,29
+Percent Student Moved To Address,30
+Percent From Within Uk Moved To Address,31
+Percent Outside Uk Moved To Address,32
+Percent Occupancy Rating Bedrooms +2,33
+Percent Occupancy Rating Bedrooms 0,34
+Percent Occupancy Rating Bedrooms +1,35
+Percent Occupancy Rating Bedrooms -2,36
+Percent Occupancy Rating Bedrooms -1,37
+Percent Occupancy Rating Rooms +2,38
+Percent Occupancy Rating Rooms 0,39
+Percent Occupancy Rating Rooms +1,40
+Percent Occupancy Rating Rooms -2,41
+Percent Occupancy Rating Rooms -1,42
+Percent 1. Managers Directors And Senior Officials,43
+Percent 2. Professional Occupations,44
+Percent 3. Associate Professional And Technical Occupations,45
+Percent 4. Administrative And Secretarial Occupations,46
+Percent 5. Skilled Trades Occupations,47
+Percent 6. Caring Leisure And Other Service Occupations,48
+Percent 7. Sales And Customer Service Occupations,49
+Percent 8. Process Plant And Machine Operatives,50
+Percent 9. Elementary Occupations,51
+Percent Born In The Uk,52
+Percent 10 Years Or More,53
+Percent 2 Years Or More But Less Than 5 Years,54
+Percent 5 Years Or More But Less Than 10 Years,55
+Percent Less Than 2 Years,56
+Pop Density,57
+Percent Aged 4 Years And Under,58
+Percent Aged 5 To 9 Years,59
+Percent Aged 10 To 14 Years,60
+Percent Aged 15 To 19 Years,61
+Percent Aged 20 To 24 Years,62
+Percent Aged 25 To 29 Years,63
+Percent Aged 30 To 34 Years,64
+Percent Aged 35 To 39 Years,65
+Percent Aged 40 To 44 Years,66
+Percent Aged 45 To 49 Years,67
+Percent Aged 50 To 54 Years,68
+Percent Aged 55 To 59 Years,69
+Percent Aged 60 To 64 Years,70
+Percent Aged 65 To 69 Years,71
+Percent Aged 70 To 74 Years,72
+Percent Aged 75 To 79 Years,73
+Percent Aged 80 To 84 Years,74
+Percent Aged 85 Years And Over,75
+Total Population,76
+Percent Never Married And Never Registered A Civil Partnership,77
+Percent Married Or In A Registered Civil Partnership,78
+Percent Married Or In A Registered Civil Partnership Married,79
+Percent Married Or In A Registered Civil Partnership Married Opposite Sex,80
+Percent Married Or In A Registered Civil Partnership Married Same Sex,81
+Percent Married Or In A Registered Civil Partnership In A Registered Civil Partnership,82
+Percent Married Or In A Registered Civil Partnership In A Registered Civil Partnership Opposite Sex,83
+Percent Married Or In A Registered Civil Partnership In A Registered Civil Partnership Same Sex,84
+Percent Separated But Still Legally Married Or Still Legally In A Civil Partnership,85
+Percent Separated But Still Legally Married Or Still Legally In A Civil Partnership Separated But Still Married,86
+Percent Separated But Still Legally Married Or Still Legally In A Civil Partnership Separated But Still In A Registered Civil Partnership,87
+Percent Divorced Or Civil Partnership Dissolved,88
+Percent Divorced Or Civil Partnership Dissolved Divorced,89
+Percent Divorced Or Civil Partnership Dissolved Formerly In A Civil Partnership Now Legally Dissolved,90
+Percent Widowed Or Surviving Civil Partnership Partner,91
+Percent Widowed Or Surviving Civil Partnership Partner Widowed,92
+Percent Widowed Or Surviving Civil Partnership Partner Surviving Partner From Civil Partnership,93
+Percent Unemployed,94
+Percent Very Good Health,95
+Percent Good Health,96
+Percent Fair Health,97
+Percent Bad Health,98
+Percent Very Bad Health,99
+Percent  Main Language Is English ,100
+Percent   Can Speak English Very Well,101
+Percent   Can Speak English Well,102
+Percent   Cannot Speak English Well,103
+Percent   Cannot Speak English,104
+Percent Households Not Deprived In Any Dimension,105
+Percent Households Deprived In One Dimension,106
+Percent Households Deprived In Two Dimensions,107
+Percent Households Deprived In Three Dimensions,108
+Percent Households Deprived In Four Dimensions,109
+Percent Male,110
+Net Annual Income,111
+No2,112
+Ozone,113
+Total Aerosol Optical Depth At 550Nm Surface,114
+Particulatmatter D Less Than 25 Um Surface,115
+Ndvi,116
+Dewpoint Temperatur2M,117
+Temperatur2M,118
+Soil Temperaturlevel 1,119
+Soil Temperaturlevel 3,120
+Lakbottom Temperature,121
+Lakmix Layer Depth,122
+Lakmix Layer Temperature,123
+Laktotal Layer Temperature,124
+Snow Albedo,125
+Snow Cover,126
+Snow Density,127
+Snow Depth,128
+Skin Reservoir Content,129
+Volumetrisoil Water Layer 1,130
+Volumetrisoil Water Layer 3,131
+Surfaclatent Heat Flux Sum,132
+Surfacnet Solar Radiation Sum,133
+Surfacsolar Radiation Downwards Sum,134
+Surfacthermal Radiation Downwards Sum,135
+Evaporation From Barsoil Sum,136
+Evaporation From Thtop Of Canopy Sum,137
+Evaporation From Open Water Surfaces Excluding Oceans Sum,138
+Total Evaporation Sum,139
+U Component Of Wind 10M,140
+V Component Of Wind 10M,141
+Surfacpressure,142
+Total Precipitation Sum,143
+Leaf Area Index High Vegetation,144
+Leaf Area Index Low Vegetation,145
+Surfacrunoff Sum,146
+Water,147
+Trees,148
+Grass,149
+Flooded Vegetation,150
+Crops,151
+Shrub And Scrub,152
+Built,153
+Bare,154
+Snow And Ice,155

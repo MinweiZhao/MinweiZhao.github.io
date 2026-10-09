@@ -1,28 +1,40 @@
-# Academic website deployment
+# Public academic website
 
-## Audit (9 October 2026)
+The public homepage is https://minweizhao.github.io/ .
 
-The original main head was `7804e0285aef00c7796cf2344c9155beb310cc86`.
-The repository contained coursework/research files, three portrait assets, and a course notebook in test.md; the full recursive tree had no website entry point or site build configuration. Only main existed.
+This repository contains the approved academic website, exported from the existing implementation rather than redesigned. It retains the visual design, Scholar avatar, education and mentor marks, nine publication records with PDF/DOI/BibTeX, twelve student/peer collaborators, and thirteen illustrated news entries. News shows five items per page, supports up to twenty-five items, and supports multiple images with an accessible enlarged view.
 
-This repository already served GitHub Pages: the dynamic `pages build and deployment` run [32442685333](https://github.com/MinweiZhao/MinweiZhao.github.io/actions/runs/32442685333) succeeded for that head on 21 August 2026. Its build used Jekyll. No gh-pages branch or committed workflow is required for branch-based Pages. The connector cannot read the Pages settings endpoint, so the exact configured source path could not be verified. Existing successful deployment establishes Pages use, not historical intent for a complete academic homepage.
+The former private-blog landing page has been removed. This export contains no blog editor, database, authentication handlers or private posts.
 
-A separate, existing complete academic website was found at https://minwei-zhao.loganminweizhao.chatgpt.site (Sites project `appgprj_6a87140612048191939ada171e7766cb`, 9 versions). It has academic/publication pages, branded icons, blog pages, and authenticated create/update/delete controls with public/private post filtering. Its current audience is owner-only. This audit does not claim a runtime verification of every editing action.
+## Deployment
 
-## Architecture
+Keep the existing **Settings → Pages → Deploy from a branch → main → /(root)** configuration. GitHub's built-in `pages build and deployment` workflow publishes committed static files automatically. The `.nojekyll` marker makes the entry point and assets serve directly.
 
-GitHub Pages hosts the public static academic profile. Publication records and official brand SVGs are reused from the existing website; portrait paths reuse repository assets. Existing files are untouched. Bibliography and PDF/DOI links are preserved as recorded in that implementation; missing ECCV resources are explicitly identified, not fabricated. External publication URLs have not been revalidated in this change.
+The `Check academic website` workflow independently verifies the source, committed output and local resources. It does not change the existing publishing configuration.
 
-The original website remains the only blog and editor implementation. GitHub Pages cannot execute its server routes, D1 database, or ChatGPT authentication. The public blog landing page explains the access restriction; it does not export private posts or recreate a second editor. Making that blog public requires an explicit audience change on the existing website. Do not put private drafts into this public GitHub repository.
+## Source and maintenance
 
-## Publishing
+- `website/app/page.tsx`: academic homepage, education and publication records.
+- `website/data/news.ts`: news records, newest first, at most twenty-five displayed.
+- `website/data/news-media.ts`: image paths, dimensions, captions and original sources.
+- `website/data/collaborators.ts`: students and peers.
+- `website/components/`: reused logos, news pagination and image gallery.
+- `website/site.css`: compiled stylesheet from the approved website, usable directly by browsers.
+- `website/static-image.tsx`: normal HTML images for GitHub Pages.
+- `assets/academic/`: website images and generated CSS/JavaScript.
 
-Preserve existing branch-based Pages publishing. In Settings → Pages, verify **Deploy from a branch**, **main**, **/(root)**. `.nojekyll` serves the entry points directly. Pushes to main then trigger GitHub's existing dynamic deployment. No second deployment workflow or gh-pages branch is needed. `pages-check.yml` validates local entry points/resources on pushes and pull requests; it is a check, not a deployment gate for the built-in Pages publisher. For gated publishing, switch Pages to GitHub Actions and replace the publisher deliberately.
+Use Node.js 24:
 
-Expected public URL: https://minweizhao.github.io/ . A successful GitHub deployment run is required before treating a new revision as live.
+```sh
+npm ci --prefix website
+npm run build --prefix website
+python3 scripts/check-pages.py _site
+```
 
-## Maintenance
+Commit both changed source and generated `index.html`, `assets/academic/`, `robots.txt`, `sitemap.xml`, and `.nojekyll`. A push to main publishes the update. Preview the website artifact with `python3 -m http.server 8000 --directory _site`.
 
-Edit `index.html` publication articles and BibTeX details together. Add PDF and DOI anchors only when real URLs are available. Styling lives in `assets/site.css`. Add, edit, delete, or change visibility of blog posts in the existing site's `/studio` page after owner sign-in. The public website never includes database files, credentials, or private drafts.
+The original coursework and research directories are retained unchanged. The build exports only the academic page and its referenced assets into `_site`.
 
-Run `python scripts/check-pages.py` locally. A local preview is available with `python -m http.server 8000` from the repository root.
+## Image provenance
+
+Publication screenshots are direct crops of actual PDFs. The ECCV screenshot is explicitly marked as an author proof. The Cities preview comes from the lab's publication announcement; two older articles currently use journal covers. CUPUM photos are reused from the conference report and LinkedIn announcement; Hangzhou photos come from the organizer. Source links remain visible beside each news image.

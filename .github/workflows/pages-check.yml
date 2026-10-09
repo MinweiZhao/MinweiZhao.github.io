@@ -1,4 +1,4 @@
-name: Check Pages entry points
+name: Check academic website
 on:
   push:
     branches: [main]
@@ -11,8 +11,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            website/
+            assets/academic/
+            index.html
+            scripts/check-pages.py
+            .nojekyll
+            robots.txt
+            sitemap.xml
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: website/package-lock.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Check HTML and local resources
-        run: python scripts/check-pages.py
+      - name: Install pinned build dependencies
+        working-directory: website
+        run: npm ci --no-audit --no-fund
+      - name: Verify committed static output matches its source
+        working-directory: website
+        run: npm run check
+      - name: Verify anonymous page and local resources
+        run: python scripts/check-pages.py _site

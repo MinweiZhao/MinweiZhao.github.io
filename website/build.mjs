@@ -20,6 +20,7 @@ await mkdir(academic, { recursive: true });
 const common = {
   absWorkingDir: source,
   bundle: true,
+  preserveSymlinks: true,
   jsx: "automatic",
   alias: { "next/image": path.join(source, "static-image.tsx") },
   logLevel: "warning",

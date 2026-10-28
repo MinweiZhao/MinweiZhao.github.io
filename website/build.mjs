@@ -45,22 +45,60 @@ const { Page, recentNews } = await import(pathToFileURL(path.join(temporary, "se
 const markup = renderToString(createElement(Page));
 const css = await readFile(path.join(source, "site.css"), "utf8");
 const cssName = `site-${createHash("sha256").update(css).digest("hex").slice(0, 10)}.css`;
-const description = "Academic profile, publications, and collaborators of Minwei Zhao. Research in GeoAI, urban computing, and spatial representation learning.";
+const title = "Minwei Zhao | GeoAI and Urban Computing | HKUST(GZ)";
+const description = "Minwei Zhao, PhD candidate at HKUST(GZ) and member of Urban Morphology Studio. Research in GeoAI, urban computing, computer vision, and graph learning.";
+const profile = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://minweizhao.github.io/#profile",
+  url: "https://minweizhao.github.io/",
+  name: title,
+  description,
+  mainEntity: {
+    "@type": "Person",
+    "@id": "https://minweizhao.github.io/#minwei-zhao",
+    name: "Minwei Zhao",
+    url: "https://minweizhao.github.io/",
+    image: "https://minweizhao.github.io/assets/academic/minwei-scholar-avatar.png",
+    jobTitle: "PhD Candidate",
+    description,
+    affiliation: [
+      {
+        "@type": "CollegeOrUniversity",
+        name: "The Hong Kong University of Science and Technology (Guangzhou)",
+      },
+      { "@type": "Organization", name: "Urban Morphology Studio" },
+    ],
+    alumniOf: [
+      { "@type": "CollegeOrUniversity", name: "University College London" },
+      { "@type": "CollegeOrUniversity", name: "Nanjing University of Posts and Telecommunications" },
+    ],
+    sameAs: [
+      "https://scholar.google.com/citations?user=iph-0OcAAAAJ",
+      "https://www.researchgate.net/profile/Minwei-Zhao",
+      "https://www.linkedin.com/in/minwei-zhao-14075332b",
+      "https://github.com/MinweiZhao",
+    ],
+  },
+};
+const structuredData = JSON.stringify(profile).replace(/</g, "\\u003c");
 const html = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Minwei Zhao — Academic Profile</title>
+<title>${title}</title>
 <meta name="description" content="${description}">
+<meta name="author" content="Minwei Zhao">
 <link rel="canonical" href="https://minweizhao.github.io/">
 <link rel="icon" type="image/svg+xml" href="/assets/academic/favicon.svg">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Minwei Zhao — Academic Profile">
+<meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:url" content="https://minweizhao.github.io/">
 <meta property="og:image" content="https://minweizhao.github.io/assets/academic/minwei-scholar-avatar.png">
 <meta name="twitter:card" content="summary">
+<script type="application/ld+json">${structuredData}</script>
 <link rel="stylesheet" href="/assets/academic/${cssName}">
 </head>
 <body>
